@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=TheOpenSnake
+Comment=Simple Twitter Client
+TryExec=snake
+Exec=snake
+Icon=TheOpenSnake
+Type=Application
+Categories=Games;
+Name[it_IT]=TheOpenSnake.desktop
