@@ -6,6 +6,13 @@ TheOpenSnake is free snake game for linux, windows, and mac osx
 
 ### Before to start!
 
+Please merge this branchs: gui-lnx with master.
+
+	git clone git@github.com:PTKDev/TheOpenSnake.git
+	git branch gui-master
+	git checkout gui-master
+	git merge gui-lnx
+
 #### Ubuntu/Debian
 
 First you have to install dependencies:
@@ -25,7 +32,7 @@ Then fix your GTK path:
 
 ####  Archlinux
     # pacman -Syu
-    # pacman -S gtk2
+    # pacman -S gtk3
 
 
 ### Compile 
