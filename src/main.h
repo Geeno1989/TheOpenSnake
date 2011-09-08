@@ -18,13 +18,11 @@
  * 
  */
  
-#include "main.h"
-#include "gui/gui.h"
- 
-int main(int argc, char **argv){
+#ifndef MAIN_H
 
-	gui_main();
 
-return 0;
+#define MAIN_H
 
-}
+#define MY_ENCODING "ISO-8859-1"
+
+#endif
