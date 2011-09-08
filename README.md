@@ -8,7 +8,7 @@ TheOpenSnake is free snake game for linux, windows, and mac osx
 
 Please merge this branchs: gui-lnx with master.
 
-	git clone git@github.com:PTKDev/TheOpenSnake.git
+	git clone https://github.com/Geeno1989/TheOpenSnake.git
 	git branch gui-master
 	git checkout gui-master
 	git merge gui-lnx
