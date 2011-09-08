@@ -6,7 +6,7 @@ TheOpenSnake is free snake game for linux, windows, and mac osx
 
 ### Before to start!
 
-Please merge this branchs: gui-lnx with master.
+Please merge this branchs: gui-win with master.
 
 	git clone https://github.com/Geeno1989/TheOpenSnake.git
 	git branch gui-master
