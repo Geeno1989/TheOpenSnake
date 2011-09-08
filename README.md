@@ -9,10 +9,12 @@ TheOpenSnake is free snake game for linux, windows, and mac osx
 #### Ubuntu/Debian
 
 First you have to install dependencies:
+
     # apt-get update
     # apt-get install build-essential libgtk2.0 libgtk2.0-dev
 
 Then fix your GTK path:
+
     $ export CPATH=$CPATH:/usr/include/gtk-2.0
     $ export CPATH=$CPATH:/usr/include/glib-2.0/
     $ export CPATH=$CPATH:/usr/lib/glib-2.0/include/
@@ -35,13 +37,14 @@ Then fix your GTK path:
     $ make
     # make install
     
-### Unistalling
-
-    # make uninstall
-    
 #### Console
 	$ gcc -Wall -DICONS_DIR=\""../share/icons"\" -o snake main.c main.h core/sys.h gui/gui.c gui/gui.h `pkg-config --cflags --libs gtk+-3.0`
 	
+    
+### Unistalling
+
+    # make uninstall
+
 	
 ## Support
 
