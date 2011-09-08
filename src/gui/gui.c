@@ -1,15 +1,15 @@
-/*
- *		This Code Was Created By Jeff Molofee 2000
- *		A HUGE Thanks To Fredric Echols For Cleaning Up
- *		And Optimizing This Code, Making It More Flexible!
- *		If You've Found This Code Useful, Please Let Me Know.
- *		Visit My Site At nehe.gamedev.net
- */
-/******ADDED BY GEENO1989*******/
+/*ADDED BY GEENO1989*/
 #include <windows.h>		// Header File For Windows
-#include <gl\gl.h>			// Header File For The OpenGL32 Library
-#include <gl\glu.h>			// Header File For The GLu32 Library
-#include <../core/sys.h>	//Header Files For Icons/Text/And Other
+#include "GrapichSnake.h"
+#include "Moviment.h"
+struct moviment{
+GLfloat dimension;
+GLfloat	direction; 
+GLfloat	moviment;
+}mov;
+
+
+
 
 HDC			hDC=NULL;		// Private GDI Device Context
 HGLRC		hRC=NULL;		// Permanent Rendering Context
@@ -21,43 +21,6 @@ BOOL	active=TRUE;		// Window Active Flag Set To TRUE By Default
 BOOL	fullscreen=TRUE;	// Fullscreen Flag Set To Fullscreen Mode By Default
 
 LRESULT	CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);	// Declaration For WndProc
-
-GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize The GL Window
-{
-	if (height==0)										// Prevent A Divide By Zero By
-	{
-		height=1;										// Making Height Equal One
-	}
-
-	glViewport(0,0,width,height);						// Reset The Current Viewport
-
-	glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix
-	glLoadIdentity();									// Reset The Projection Matrix
-
-	// Calculate The Aspect Ratio Of The Window
-	gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,100.0f);
-
-	glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
-	glLoadIdentity();									// Reset The Modelview Matrix
-}
-
-int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
-{
-	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
-	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
-	glClearDepth(1.0f);									// Depth Buffer Setup
-	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
-	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
-	return TRUE;										// Initialization Went OK
-}
-
-int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
-	glLoadIdentity();									// Reset The Current Modelview Matrix
-	return TRUE;										// Everything Went OK
-}
 
 GLvoid KillGLWindow(GLvoid)								// Properly Kill The Window
 {
@@ -121,14 +84,6 @@ GLvoid KillGLWindow(GLvoid)								// Properly Kill The Window
 		0,											// Reserved
 		0, 0, 0										// Layer Masks Ignored
 	};
-	
-
-/*	This Code Creates Our OpenGL Window.  Parameters Are:					*
- *	title			- Title To Appear At The Top Of The Window				*
- *	width			- Width Of The GL Window Or Fullscreen Mode				*
- *	height			- Height Of The GL Window Or Fullscreen Mode			*
- *	bits			- Number Of Bits To Use For Color (8/16/24/32)			*
- *	fullscreenflag	- Use Fullscreen Mode (TRUE) Or Windowed Mode (FALSE)	*/
  
 int CreateGLWindow(char* title, int width, int height, int bits)
 {
@@ -223,15 +178,6 @@ int CreateGLWindow(char* title, int width, int height, int bits)
 	ShowWindow(hWnd,SW_SHOW);						// Show The Window
 	SetForegroundWindow(hWnd);						// Slightly Higher Priority
 	SetFocus(hWnd);									// Sets Keyboard Focus To The Window
-	ReSizeGLScene(width, height);					// Set Up Our Perspective GL Screen
-
-	if (!InitGL())									// Initialize Our Newly Created GL Window
-	{
-		KillGLWindow();								// Reset The Display
-		MessageBox(NULL,"Initialization Failed.","ERROR",MB_OK|MB_ICONEXCLAMATION);
-		return FALSE;								// Return FALSE
-	}
-
 	return TRUE;									// Success
 }
 
@@ -281,17 +227,12 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
 
 		case WM_KEYUP:								// Has A Key Been Released?
 		{
-			keys[wParam] = FALSE;					// If So, Mark It As FALSE
+			
 			return 0;								// Jump Back
 		}
-
-		case WM_SIZE:								// Resize The OpenGL Window
-		{
-			ReSizeGLScene(LOWORD(lParam),HIWORD(lParam));  // LoWord=Width, HiWord=Height
-			return 0;								// Jump Back
-		}
+			
+		return 0;
 	}
-
 	// Pass All Unhandled Messages To DefWindowProc
 	return DefWindowProc(hWnd,uMsg,wParam,lParam);
 }
@@ -303,16 +244,20 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 {
 	MSG		msg;									// Windows Message Structure
 	BOOL	done=FALSE;								// BOOL Variable To Exit Loop
-
+	mov.dimension = 0.2;
+	mov.moviment = 0.0;
+	mov.direction = 0.0;
+	
 	// Create Our OpenGL Window
-	if (!CreateGLWindow(TITLE,300,200,16))
+	if (!CreateGLWindow("The Open Snake",300,200,16))
 	{
 		return 0;									// Quit If Window Was Not Created
 	}
-
 	while(!done)									// Loop That Runs While done=FALSE
 	{
-		if (PeekMessage(&msg,NULL,0,0,PM_REMOVE))	// Is There A Message Waiting?
+		
+		
+			if (PeekMessage(&msg,NULL,0,0,PM_REMOVE))	// Is There A Message Waiting?
 		{
 			if (msg.message==WM_QUIT)				// Have We Received A Quit Message?
 			{
@@ -329,31 +274,21 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 			// Draw The Scene.  Watch For ESC Key And Quit Messages From DrawGLScene()
 			if (active)								// Program Active?
 			{
+				mov.moviment = drawSnake(mov.dimension,mov.moviment);	
 				if (keys[VK_ESCAPE])				// Was ESC Pressed?
 				{
 					done=TRUE;						// ESC Signalled A Quit
 				}
 				else								// Not Time To Quit, Update Screen
 				{
-					DrawGLScene();					// Draw The Scene
+					//DrawGLScene();					// Draw The Scene
 					SwapBuffers(hDC);				// Swap Buffers (Double Buffering)
 				}
+				Sleep(50);
 			}
-
-			//if (keys[VK_F1])						// Is F1 Being Pressed?
-			//{
-			//	keys[VK_F1]=FALSE;					// If So Make Key FALSE
-			//	KillGLWindow();						// Kill Our Current Window
-			//	// Recreate Our OpenGL Window
-			//	if (!CreateGLWindow("The Open Snake",640,480,16))
-			//	{
-			//		return 0;						// Quit If Window Was Not Created
-			//	}
-			//}
 		}
 	}
 
 	// Shutdown
 	KillGLWindow();									// Kill The Window
-	return (msg.wParam);							// Exit The Program
 }
