@@ -1,7 +1,12 @@
-TheOpenSnake
+# TheOpenSnake
+
 TheOpenSnake is free snake game for linux, windows, and mac osx
 
-How to Install - Ubuntu/Debian
+## How to Install
+
+### Before to start!
+
+#### Ubuntu/Debian
 
 First you have to install dependencies:
     # apt-get update
@@ -16,16 +21,30 @@ Then fix your GTK path:
     $ export CPATH=$CPATH:/usr/include/atk-1.0/
 
 
-How to Install - Archlinux
+####  Archlinux
     # pacman -Syu
     # pacman -S gtk2
 
 
-Compile - Makefile
+### Compile 
+
+#### Makefile
+
     $ ./autogen.sh
     $ ./configure
     $ make
     # make install
+    
+### Unistalling
 
-Unistalling - Makefile
     # make uninstall
+    
+#### Console
+	$ gcc -Wall -DICONS_DIR=\""../share/icons"\" -o snake main.c main.h core/sys.h gui/gui.c gui/gui.h `pkg-config --cflags --libs gtk+-3.0`
+	
+	
+## Support
+
+Source: https://github.com/PTKDev/
+
+IRC: chat.freenode.net at #ptkdev
