@@ -32,7 +32,7 @@ Then fix your GTK path:
 
 ####  Archlinux
     # pacman -Syu
-    # pacman -S gtk3
+    # pacman -S gtk2
 
 
 ### Compile 
@@ -45,7 +45,7 @@ Then fix your GTK path:
     # make install
     
 #### Console
-	$ gcc -Wall -DICONS_DIR=\""../share/icons"\" -o snake main.c main.h core/sys.h gui/gui.c gui/gui.h `pkg-config --cflags --libs gtk+-3.0`
+	$ gcc -Wall -DICONS_DIR=\""../share/icons"\" -o snake main.c main.h core/sys.h gui/gui.c gui/gui.h `pkg-config --cflags --libs gtk+-2.0`
 	
     
 ### Unistalling
