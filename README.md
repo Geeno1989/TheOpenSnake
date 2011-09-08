@@ -21,7 +21,7 @@ Please merge this branchs: gui-lnx with master.
 ### Compile 
     
 #### Console
-	$ gcc -Wall -o snake main.c main.h core/sys.h gui/gui.c gui/gui.h `pkg-config --cflags --libs gtk+-2.0`
+	$ gcc -Wall -o snake main.c main.h core/sys.h gui/gui.c gui/gui.h
 
 	
 ## Support
