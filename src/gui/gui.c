@@ -9,6 +9,7 @@
 #include <windows.h>		// Header File For Windows
 #include <gl\gl.h>			// Header File For The OpenGL32 Library
 #include <gl\glu.h>			// Header File For The GLu32 Library
+#include <../core/sys.h>	//Header Files For Icons/Text/And Other
 
 HDC			hDC=NULL;		// Private GDI Device Context
 HGLRC		hRC=NULL;		// Permanent Rendering Context
@@ -304,7 +305,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 	BOOL	done=FALSE;								// BOOL Variable To Exit Loop
 
 	// Create Our OpenGL Window
-	if (!CreateGLWindow("The Open Snake",300,200,16))
+	if (!CreateGLWindow(TITLE,300,200,16))
 	{
 		return 0;									// Quit If Window Was Not Created
 	}
