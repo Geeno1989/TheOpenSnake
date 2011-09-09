@@ -1,14 +1,14 @@
 /*ADDED BY GEENO1989*/
 #include <windows.h>		// Header File For Windows
+#include "sys.h"
 #include "GrapichSnake.h"
-#include "Moviment.h"
+
 struct moviment{
 GLfloat dimension;
 GLfloat	direction; 
-GLfloat	moviment;
+GLfloat	movimentx; 
+GLfloat	movimenty;
 }mov;
-
-
 
 
 HDC			hDC=NULL;		// Private GDI Device Context
@@ -227,7 +227,7 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
 
 		case WM_KEYUP:								// Has A Key Been Released?
 		{
-			
+			mov.direction = UP;
 			return 0;								// Jump Back
 		}
 			
@@ -245,9 +245,10 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 	MSG		msg;									// Windows Message Structure
 	BOOL	done=FALSE;								// BOOL Variable To Exit Loop
 	mov.dimension = 0.2;
-	mov.moviment = 0.0;
+	mov.movimentx = 0.0;
 	mov.direction = 0.0;
-	
+	mov.movimenty = 0.0;
+
 	// Create Our OpenGL Window
 	if (!CreateGLWindow("The Open Snake",300,200,16))
 	{
@@ -274,7 +275,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 			// Draw The Scene.  Watch For ESC Key And Quit Messages From DrawGLScene()
 			if (active)								// Program Active?
 			{
-				mov.moviment = drawSnake(mov.dimension,mov.moviment);	
+				drawSnake(mov.dimension,&mov.movimentx);	
 				if (keys[VK_ESCAPE])				// Was ESC Pressed?
 				{
 					done=TRUE;						// ESC Signalled A Quit
