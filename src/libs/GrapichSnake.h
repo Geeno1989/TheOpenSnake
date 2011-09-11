@@ -4,6 +4,6 @@
 #define DRAW_SNAKE_H
 
 #include "OpenGl.h"
-GLfloat drawSnake(GLfloat dim,GLfloat moviment);
+GLfloat drawSnake(GLfloat dim,GLfloat *moviment);
 
 #endif

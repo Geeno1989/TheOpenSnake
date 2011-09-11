@@ -26,5 +26,13 @@
 #define MY_ENCODING "ISO-8859-1"
 
 #define TITLE "TheOpenSnake"
+typedef enum DIRECTION
+{
+    NORMAL = 0,
+	UP = 1,
+    DOWN = 2,
+    RIGHT = 3,
+	LEFT = 4
+} DIRECTION;
 
 #endif
