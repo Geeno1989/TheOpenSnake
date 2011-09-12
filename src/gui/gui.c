@@ -30,7 +30,7 @@ GtkWidget* gtk_status_bar_create()
 return statusbar;
 }
 
-GtkWidget* gtk_menu_item_create(GtkWidget* menu, const gchar const* title, const gchar const* image_path)
+GtkWidget* gtk_menu_item_create(GtkWidget* menu, const gchar* title, const gchar* image_path)
 {
 	GtkWidget * item = gtk_image_menu_item_new_with_label(title);
 	GtkWidget * image = gtk_image_new_from_file (image_path);
@@ -42,7 +42,7 @@ return item;
 }
 
 
-GtkWidget* gtk_menu_create(GtkWidget* menu_bar, const gchar const* name)
+GtkWidget* gtk_menu_create(GtkWidget* menu_bar, const gchar* name)
 {
 	GtkWidget *menu = gtk_menu_new();
 	GtkWidget *item = gtk_menu_item_new_with_label(name);
