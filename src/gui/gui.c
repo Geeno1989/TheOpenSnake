@@ -17,8 +17,7 @@
  *
  * 
  */
- 
-#include "../core/sys.h"
+
 #include "gui.h"
  
 GtkWidget* gtk_status_bar_create()
