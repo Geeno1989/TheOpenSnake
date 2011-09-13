@@ -3,9 +3,9 @@
 #include "GrapichSnake.h"
 
 void initializeSnake(snakePart_t part[100],GLfloat dim){
-	int j,start = dim*10;
+	int j;
 
-	for(j=0; j<=start;j++)
+	for(j=0; j<=dim-1;j++)
 	{
 		part[j].direction_old = STOP;
 		part[j].direction_new = STOP;
@@ -32,7 +32,7 @@ GLfloat drawSnake(float dim, DIRECTION direction,snakePart_t part[100]){
 	glTranslatef(0,0,0);
 	glColor3f(1.0,1.0,1.0);
 	glBegin(GL_POINTS);
-	drawPart((dim/2),direction,part,0);
+	drawPart(dim,direction,part,0);
 	glEnd();
 	glFlush();
 	//moviment = moviment + 0.001;
@@ -57,8 +57,8 @@ int drawPart(float actual_dim, DIRECTION direction, snakePart_t part[100],int co
 		case STOP:/*STOP situation*/
 			part[count].direction_old = part[count].direction_new;
 			part[count].direction_new = direction;
-			part[count].startx = (GLfloat) actual_dim - 0.1*(count-count);/*Start of the part*/
-			part[count].stopx = (GLfloat) actual_dim - 0.1 * (count-(count+1));/*End of the part*/
+			part[count].startx = 0.0;/*Start of the part*/
+			part[count].stopx = 0.1;/*End of the part*/
 			while (part[count].startx < part[count].stopx)
 			{
 				

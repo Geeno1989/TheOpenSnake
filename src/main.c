@@ -20,7 +20,8 @@
  
 #include "main.h"
 #include "gui/gui.h"
- 
+
+#ifdef LINUX
 int main(int argc, char **argv){
 
 	gui_main();
@@ -28,3 +29,4 @@ int main(int argc, char **argv){
 return 0;
 
 }
+#endif
