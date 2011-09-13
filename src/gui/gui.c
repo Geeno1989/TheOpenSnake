@@ -3,14 +3,8 @@
 #include "sys.h"
 #include "GrapichSnake.h"
 
-struct moviment{
-GLfloat dimension;
-GLfloat	direction; 
-GLfloat	movimentx; 
-GLfloat	movimenty;
-}mov;
-
-
+DIRECTION Direction = STOP;
+ 
 HDC			hDC=NULL;		// Private GDI Device Context
 HGLRC		hRC=NULL;		// Permanent Rendering Context
 HWND		hWnd=NULL;		// Holds Our Window Handle
@@ -201,7 +195,7 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
 
 			return 0;								// Return To The Message Loop
 		}
-
+		
 		case WM_SYSCOMMAND:							// Intercept System Commands
 		{
 			switch (wParam)							// Check System Calls
@@ -225,12 +219,7 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
 			return 0;								// Jump Back
 		}
 
-		case WM_KEYUP:								// Has A Key Been Released?
-		{
-			mov.direction = UP;
-			return 0;								// Jump Back
-		}
-			
+		
 		return 0;
 	}
 	// Pass All Unhandled Messages To DefWindowProc
@@ -244,11 +233,11 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 {
 	MSG		msg;									// Windows Message Structure
 	BOOL	done=FALSE;								// BOOL Variable To Exit Loop
-	mov.dimension = 0.2;
-	mov.movimentx = 0.0;
-	mov.direction = 0.0;
-	mov.movimenty = 0.0;
-
+	snakePart_t part[100];
+	float dimension = 0.4;
+	int j,i;
+	initializeSnake(part,dimension);
+	
 	// Create Our OpenGL Window
 	if (!CreateGLWindow("The Open Snake",300,200,16))
 	{
@@ -275,7 +264,27 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 			// Draw The Scene.  Watch For ESC Key And Quit Messages From DrawGLScene()
 			if (active)								// Program Active?
 			{
-				drawSnake(mov.dimension,&mov.movimentx);	
+				/*keys control*/
+				if(keys[VK_RIGHT])								/*Press right key*/
+				{
+					Direction = RIGHT;
+				}
+				
+				if(keys[VK_UP])								// Has A Key Been Released?
+				{
+					Direction = UP;
+				}		
+				if(keys[VK_DOWN])								/*Press right key*/
+				{
+					Direction = DOWN;
+				}
+				
+				if(keys[VK_LEFT])								// Has A Key Been Released?
+				{
+					Direction = LEFT;
+				}		
+				drawSnake(dimension,Direction,part);
+				
 				if (keys[VK_ESCAPE])				// Was ESC Pressed?
 				{
 					done=TRUE;						// ESC Signalled A Quit
@@ -285,7 +294,11 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 					//DrawGLScene();					// Draw The Scene
 					SwapBuffers(hDC);				// Swap Buffers (Double Buffering)
 				}
-				Sleep(50);
+				for(i = 0; i<=256;i++)
+				{
+					keys[i] = 0;
+				}
+				Sleep(500);
 			}
 		}
 	}
