@@ -34,6 +34,10 @@ Game*
 init_game()
 {
   Game* game = malloc(sizeof(Game));
+  if(game == NULL) {
+    printf("Error while trying to allocate memory");
+    exit(1);
+  }
   
   reset_game(game);
 
