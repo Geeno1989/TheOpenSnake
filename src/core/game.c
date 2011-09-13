@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include "game.h"
 
+static int MAX_LIVES = 3;
+
 static void
 set_properties(Game* game, int speed);
 
@@ -100,7 +102,7 @@ get_points(Game* game)
 int
 add_life(Game* game)
 {
-  if(game->lives < 3) {
+  if(game->lives < MAX_LIVES) {
     game->lives = game->lives + 1;
     return 1;
   } else {
