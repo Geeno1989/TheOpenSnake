@@ -20,9 +20,6 @@
 
 #include <time.h>
 #include "sys.h"
-#ifdef LINUX
-#include <stdbool.h>
-#endif
 
 typedef struct Game {
     int lives;
@@ -61,20 +58,10 @@ add_points(Game* game, int points);
 int
 get_points(Game* game);
 
-#ifdef LINUX
-bool
-add_life(Game* game);
-#endif
-
-BOOL
+int
 add_life(Game* game);
 
-#ifdef LINUX
-bool
-remove_life(Game* game);
-#endif
-
-BOOL 
+int
 remove_life(Game* game);
 
 void
