@@ -96,26 +96,56 @@ get_points(Game* game)
 {
   return game->points;
 }
-
+#ifdef LINUX 
 bool
-add_life(Game* game)
+#endif
+#ifdef _WIN32
+BOOL
+#endif
+	add_life(Game* game)
+
 {
   if(game->lives < 3) {
     game->lives = game->lives + 1;
-    return true;
+    #ifdef LINUX 
+	  return true;
+#endif
+	#ifdef _WIN32 
+	  return TRUE;
+#endif
   } else {
-    return false;
+#ifdef LINUX 
+	  return false;
+#endif
+	#ifdef _WIN32 
+	  return FALSE;
+#endif
   }
 }
 
+#ifdef LINUX 
 bool
+#endif
+#ifdef _WIN32
+BOOL
+#endif
 remove_life(Game* game)
 {
   if(game->lives > 0) {
     game->lives = game->lives - 1;
-    return true;
+        #ifdef LINUX 
+	  return true;
+#endif
+	#ifdef _WIN32 
+	  return TRUE;
+#endif
   } else {
-    return false;
+#ifdef LINUX 
+	  return false;
+#endif
+	#ifdef _WIN32 
+	  return FALSE;
+#endif
   }
 }
 
