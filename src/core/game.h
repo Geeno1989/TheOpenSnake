@@ -38,7 +38,7 @@ typedef struct Game {
   Returns:      An instance of a Game Struct
   Description:  This function initializes the instance and sets all default parameters
 */
-Game*
+Game* const
 init_game();
 
 

@@ -33,7 +33,7 @@ set_properties(Game* const game, const int speed)
   game->speed = speed;
 }
 
-Game*
+Game* const
 init_game()
 {
   Game* const game = malloc(sizeof(Game));
