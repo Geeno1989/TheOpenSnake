@@ -2,6 +2,7 @@
 #include <windows.h>		// Header File For Windows
 #include "sys.h"
 #include "GrapichSnake.h"
+#include "game.h"
 
 DIRECTION Direction = STOP;
  
@@ -234,15 +235,19 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 	MSG		msg;									// Windows Message Structure
 	BOOL	done=FALSE;								// BOOL Variable To Exit Loop
 	snakePart_t part[100];
-	float dimension = 0.4;
 	int j,i;
-	initializeSnake(part,dimension);
+	Game *game;
+	
 	
 	// Create Our OpenGL Window
 	if (!CreateGLWindow("The Open Snake",300,200,16))
 	{
 		return 0;									// Quit If Window Was Not Created
 	}
+	game = init_game();
+	start_game(game);
+
+	initializeSnake(part,game->snakeParts);
 	while(!done)									// Loop That Runs While done=FALSE
 	{
 		
@@ -283,7 +288,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 				{
 					Direction = LEFT;
 				}		
-				drawSnake(dimension,Direction,part);
+				drawSnake(game->snakeParts,Direction,part);
 				
 				if (keys[VK_ESCAPE])				// Was ESC Pressed?
 				{
@@ -304,5 +309,6 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 	}
 
 	// Shutdown
+	end_game(game);
 	KillGLWindow();									// Kill The Window
 }
