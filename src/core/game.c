@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include "game.h"
 
-static int MAX_LIVES = 3;
+static const int MAX_LIVES = 3;
 
 static void
 set_properties(Game* game, int speed);
