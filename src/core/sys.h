@@ -24,15 +24,29 @@
 #define SYS_H
 
 #define MY_ENCODING "ISO-8859-1"
-
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #define TITLE "TheOpenSnake"
 typedef enum DIRECTION
 {
-    NORMAL = 0,
+    STOP = 0,
 	UP = 1,
     DOWN = 2,
     RIGHT = 3,
-	LEFT = 4
+	LEFT = 4,
+	NOT_INIZIALIZED = 5
 } DIRECTION;
+
+
+typedef struct snakePart{
+DIRECTION	direction_new;
+DIRECTION	direction_old;
+float startx;
+float stopx;
+float starty;
+float stopy;
+}snakePart_t;
+
 
 #endif
