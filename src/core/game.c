@@ -25,18 +25,18 @@
 static const int MAX_LIVES = 3;
 
 static void
-set_properties(Game* game, int speed);
+set_properties(Game* const game, const int speed);
 
 static void
-set_properties(Game* game, int speed)
+set_properties(Game* const game, const int speed)
 {
   game->speed = speed;
 }
 
-Game*
+Game* const
 init_game()
 {
-  Game* game = malloc(sizeof(Game));
+  Game* const game = malloc(sizeof(Game));
   if(game == NULL) {
     printf("Error while trying to allocate memory");
     exit(1);
@@ -48,13 +48,13 @@ init_game()
 }
 
 void
-free_game(Game* game)
+free_game(Game* const game)
 {
   free(game);
 }
 
 void
-reset_game(Game* game)
+reset_game(Game* const game)
 {
   game->lives = 3;
   game->snakeParts = 3;
@@ -64,42 +64,43 @@ reset_game(Game* game)
 }
 
 void
-start_game(Game* game)
+start_game(Game* const game)
 {
   time(&(game->timeStart));
 }
 
 void
-end_game(Game* game)
+end_game(Game* const game)
 {
   time(&(game->timeEnd));
 }
 
 time_t
-get_duration(Game* game)
+get_duration(const Game* const game)
 {  
   return difftime(game->timeEnd, game->timeStart);
 }
 
 int
-get_lives(Game* game)
+get_lives(const Game* const game)
 {
   return game->lives;
 }
 
 void
-add_points(Game* game, int points)
+add_points(Game* const game, const int points)
 {
   game->points = points;
 }
 
 int
-get_points(Game* game)
+get_points(const Game* const game)
 {
   return game->points;
 }
+
 int
-add_life(Game* game)
+add_life(Game* const game)
 {
   if(game->lives < MAX_LIVES) {
     game->lives = game->lives + 1;
@@ -110,7 +111,7 @@ add_life(Game* game)
 }
 
 int
-remove_life(Game* game)
+remove_life(Game* const game)
 {
   if(game->lives > 0) {
     game->lives = game->lives - 1;
@@ -121,7 +122,7 @@ remove_life(Game* game)
 }
 
 void
-add_snakePart(Game* game)
+add_snakePart(Game* const game)
 {
   game->snakeParts = game->snakeParts + 1;
 }
