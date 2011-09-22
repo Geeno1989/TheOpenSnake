@@ -33,7 +33,7 @@ struct Game {
 
     time_t timeStart;
     time_t timeEnd;
-}
+};
 
 struct Game* init_game();
 void free_game(struct Game* const game);
