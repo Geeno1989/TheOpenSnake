@@ -20,23 +20,44 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "game.h"
+
+struct Game {
+    int lives;
+    int snakeParts;
+    int speed;
+    int points;
+    
+    time_t timeStart;
+    time_t timeEnd;
+};
 
 static const int MAX_LIVES = 3;
 
-static void
-set_properties(Game* const game, const int speed);
+struct Game* init_game();
+void free_game(struct Game* const game);
+void reset_game(struct Game* const game);
+void start_game(struct Game* const game);
+void end_game(struct Game* const game);
+void add_snakePart(struct Game* const game);
+void add_points(struct Game* const game, const int points);
+int get_lives(const struct Game* const game);
+int get_points(const struct Game* const game);
+int add_life(struct Game* const game);
+int remove_life(struct Game* const game);
+time_t get_duration(const struct Game* const game);
+static void set_properties(struct Game* const game, const int speed);
+
 
 static void
-set_properties(Game* const game, const int speed)
+set_properties(struct Game* const game, const int speed)
 {
   game->speed = speed;
 }
 
-Game* const
+struct Game*
 init_game()
 {
-  Game* const game = malloc(sizeof(Game));
+  struct Game* game = malloc(sizeof(struct Game));
   if(game == NULL) {
     printf("Error while trying to allocate memory");
     exit(1);
@@ -48,13 +69,13 @@ init_game()
 }
 
 void
-free_game(Game* const game)
+free_game(struct Game* const game)
 {
   free(game);
 }
 
 void
-reset_game(Game* const game)
+reset_game(struct Game* const game)
 {
   game->lives = 3;
   game->snakeParts = 3;
@@ -64,43 +85,43 @@ reset_game(Game* const game)
 }
 
 void
-start_game(Game* const game)
+start_game(struct Game* const game)
 {
   time(&(game->timeStart));
 }
 
 void
-end_game(Game* const game)
+end_game(struct Game* const game)
 {
   time(&(game->timeEnd));
 }
 
 time_t
-get_duration(const Game* const game)
+get_duration(const struct Game* const game)
 {  
   return difftime(game->timeEnd, game->timeStart);
 }
 
 int
-get_lives(const Game* const game)
+get_lives(const struct Game* const game)
 {
   return game->lives;
 }
 
 void
-add_points(Game* const game, const int points)
+add_points(struct Game* const game, const int points)
 {
   game->points = points;
 }
 
 int
-get_points(const Game* const game)
+get_points(const struct Game* const game)
 {
   return game->points;
 }
 
 int
-add_life(Game* const game)
+add_life(struct Game* const game)
 {
   if(game->lives < MAX_LIVES) {
     game->lives = game->lives + 1;
@@ -111,7 +132,7 @@ add_life(Game* const game)
 }
 
 int
-remove_life(Game* const game)
+remove_life(struct Game* const game)
 {
   if(game->lives > 0) {
     game->lives = game->lives - 1;
@@ -122,7 +143,7 @@ remove_life(Game* const game)
 }
 
 void
-add_snakePart(Game* const game)
+add_snakePart(struct Game* const game)
 {
   game->snakeParts = game->snakeParts + 1;
 }
