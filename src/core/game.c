@@ -20,9 +20,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "game.h"
 
 static const int MAX_LIVES = 3;
+
+struct Game {
+    int lives;
+    int snakeParts;
+    int speed;
+    int points;
+    int screenWidth;
+    int screenHeight;
+
+    time_t timeStart;
+    time_t timeEnd;
+}
 
 struct Game* init_game();
 void free_game(struct Game* const game);
