@@ -17,24 +17,6 @@
  *
  * 
  */
- 
-#ifdef LINUX
-#ifndef GUI_MAIN_H
-#define MY_ENCODING "ISO-8859-1"
-#define GUI_MAIN_H
 
-#include <gtk/gtk.h>
-#include <glib.h>
-#include <pthread.h>
-#include <gdk/gdkkeysyms.h>
-
-int gui_main();
-GtkWidget* gtk_window_main_create();
-GtkWidget* gtk_menu_item_create(GtkWidget* menu, const gchar const* title, const gchar const* image_path);
-GtkWidget* gtk_menu_create(GtkWidget* menu_bar, const gchar const* name);
-GtkWidget* gtk_menu_bar_create();
-GtkWidget* gtk_status_bar_create();
->>>>>>> gui-lnx
-
-#endif
-#endif
+extern const char* ICON_CLOSE;
+extern const char* ICON_FAVICON;
