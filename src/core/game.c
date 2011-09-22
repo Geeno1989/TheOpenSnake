@@ -45,8 +45,7 @@ int get_points(const struct Game* const game);
 int add_life(struct Game* const game);
 int remove_life(struct Game* const game);
 time_t get_duration(const struct Game* const game);
-static void
-set_properties(struct Game* const game, const int speed);
+static void set_properties(struct Game* const game, const int speed);
 
 
 static void
