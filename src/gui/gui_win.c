@@ -238,15 +238,14 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 	BOOL	done=FALSE;								// BOOL Variable To Exit Loop
 	snakePart_t part[100];
 	int j,i;
-	Game *game;
+	Game *game= init_game();
 	
 	
 	// Create Our OpenGL Window
-	if (!CreateGLWindow("The Open Snake",300,200,16))
+	if (!CreateGLWindow("The Open Snake",game->screenWidth,game->screenHeight,16))
 	{
 		return 0;									// Quit If Window Was Not Created
 	}
-	game = init_game();
 	start_game(game);
 
 	initializeSnake(part,game->snakeParts);
@@ -305,7 +304,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 				{
 					keys[i] = 0;
 				}
-				Sleep(500);
+				Sleep(game->speed * 100);
 			}
 		}
 	}

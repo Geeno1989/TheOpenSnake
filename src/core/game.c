@@ -20,16 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-struct Game {
-    int lives;
-    int snakeParts;
-    int speed;
-    int points;
-    
-    time_t timeStart;
-    time_t timeEnd;
-};
+#include "game.h"
 
 static const int MAX_LIVES = 3;
 
@@ -80,6 +71,8 @@ reset_game(struct Game* const game)
   game->lives = 3;
   game->snakeParts = 3;
   game->points = 0;
+  game->screenHeight = 200;
+  game->screenWidth = 300;
   
   set_properties(game, 3);
 }

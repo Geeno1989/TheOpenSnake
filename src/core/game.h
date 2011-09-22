@@ -27,7 +27,9 @@ typedef struct Game {
     int snakeParts;
     int speed;
     int points;
-    
+    int screenWidth;
+	int screenHeight;
+
     time_t timeStart;
     time_t timeEnd;
 }Game;
