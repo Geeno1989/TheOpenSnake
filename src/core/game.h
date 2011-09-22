@@ -22,7 +22,15 @@
 #include "sys.h"
 
 
-typedef struct Game Game;
+typedef struct Game {
+    int lives;
+    int snakeParts;
+    int speed;
+    int points;
+    
+    time_t timeStart;
+    time_t timeEnd;
+}Game;
 
 
 /*
