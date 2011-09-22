@@ -311,6 +311,9 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 
 	// Shutdown
 	end_game(game);
+	
+	free_game(game);
+	
 	KillGLWindow();									// Kill The Window
 }
 #endif
