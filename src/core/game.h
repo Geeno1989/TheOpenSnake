@@ -22,15 +22,7 @@
 #include "sys.h"
 
 
-typedef struct Game {
-    int lives;
-    int snakeParts;
-    int speed;
-    int points;
-    
-    time_t timeStart;
-    time_t timeEnd;
-} Game;
+typedef struct Game Game;
 
 
 /*
@@ -38,7 +30,7 @@ typedef struct Game {
   Returns:      An instance of a Game Struct
   Description:  This function initializes the instance and sets all default parameters
 */
-Game* const
+Game*
 init_game();
 
 
