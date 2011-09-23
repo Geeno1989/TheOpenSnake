@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "game.h"
 
 static const int MAX_LIVES = 3;
 
@@ -35,18 +36,6 @@ struct Game {
     time_t timeEnd;
 };
 
-struct Game* init_game();
-void free_game(struct Game* const game);
-void reset_game(struct Game* const game);
-void start_game(struct Game* const game);
-void end_game(struct Game* const game);
-void add_snakePart(struct Game* const game);
-void add_points(struct Game* const game, const int points);
-int get_lives(const struct Game* const game);
-int get_points(const struct Game* const game);
-int add_life(struct Game* const game);
-int remove_life(struct Game* const game);
-time_t get_duration(const struct Game* const game);
 static void set_properties(struct Game* const game, const int speed);
 
 
