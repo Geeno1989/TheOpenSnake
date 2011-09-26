@@ -19,9 +19,10 @@
  */
  
 #include "main.h"
-#include "gui/gui.h"
 
 #ifdef LINUX
+#include "gui/gui_lnx.h"
+
 int main(int argc, char **argv){
 
 	gui_main();
