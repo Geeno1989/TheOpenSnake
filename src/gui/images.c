@@ -18,5 +18,5 @@
  * 
  */
  
-const char* ICON_CLOSE = "";
-const char* ICON_FAVICON = "";
+const char* ICON_CLOSE = ICONS_DIR"/menu.close.png";
+const char* ICON_FAVICON = ICONS_DIR"/snake.favicon.png";

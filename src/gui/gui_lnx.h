@@ -18,7 +18,7 @@
  * 
  */
  
-#ifdef LINUX
+#ifdef linux
 #ifndef GUI_MAIN_H
 #define MY_ENCODING "ISO-8859-1"
 #define GUI_MAIN_H
