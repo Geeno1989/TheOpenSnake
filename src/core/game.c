@@ -1,143 +1,107 @@
 /*
- *	TheOpenSnake is free snake game for linux, windows, and mac osx
- *		Copyright (C) 2011  TheOpenSnake Team
- *
- *		This program is free software: you can redistribute it and/or modify
- *		it under the terms of the GNU General Public License as published by
- *		the Free Software Foundation, either version 3 of the License, or
- *		(at your option) any later version.
- *
- *		This program is distributed in the hope that it will be useful,
- *		but WITHOUT ANY WARRANTY; without even the implied warranty of
- *		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *		GNU General Public License for more details.
- *
- *		You should have received a copy of the GNU General Public License
- *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * 
- */
+* TheOpenSnake is free snake game for linux, windows, and mac osx
+* Copyright (C) 2011 TheOpenSnake Team
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*
+*
+*/
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "game.h"
+#include "error.h"
 
-static const int MAX_LIVES = 3;
+#include <stdlib.h>
+#include <assert.h>
 
 struct Game {
-    int lives;
-    int snakeParts;
-    int speed;
-    int points;
-    int screenWidth;
-    int screenHeight;
-
-    time_t timeStart;
-    time_t timeEnd;
+  enum Difficulty difficulty;
+  Grid* grid;
+  Snake* snake;
+  
+  unsigned int screenWidth;
+  unsigned int screenHeight;
 };
 
-static void set_properties(struct Game* const game, const int speed);
-
-
-static void
-set_properties(struct Game* const game, const int speed)
-{
-  game->speed = speed;
-}
-
 struct Game*
-init_game()
+create_game(enum Difficulty difficulty,
+            unsigned int gridHeight,
+            unsigned int gridWidth,
+            unsigned int screenHeight,
+            unsigned int screenWidth)
 {
-  struct Game* game = malloc(sizeof(struct Game));
-  if(game == NULL) {
-    printf("Error while trying to allocate memory");
-    exit(1);
-  }
-  
-  reset_game(game);
-
-  return game;
+    Game* game = malloc(sizeof(*game));
+    
+    if(game == NULL)
+      no_memory_error();
+    
+    game->difficulty = difficulty;
+    game->grid = create_grid(game, gridWidth, gridHeight);
+    game->snake = create_snake(game);
+    game->screenWidth = screenWidth;
+    game->screenHeight = screenHeight;
+    
+    return game;
 }
 
 void
-free_game(struct Game* const game)
+destroy_game(struct Game* game)
 {
+  assert(game != NULL);
+  
+  destroy_grid(game);
+  destroy_snake(game);
+  
   free(game);
 }
 
-void
-reset_game(struct Game* const game)
+Grid*
+get_grid(const struct Game* game)
 {
-  game->lives = 3;
-  game->snakeParts = 3;
-  game->points = 0;
-  game->screenHeight = 200;
-  game->screenWidth = 300;
+  assert(game != NULL);  
   
-  set_properties(game, 3);
+  return game->grid;
 }
 
-void
-start_game(struct Game* const game)
+Snake*
+get_snake(const struct Game* game)
 {
-  time(&(game->timeStart));
+  assert(game != NULL);
+  
+  return game->snake;
 }
 
-void
-end_game(struct Game* const game)
+Difficulty
+get_difficulty(const struct Game* game)
 {
-  time(&(game->timeEnd));
+  assert(game != NULL);
+  
+  return game->difficulty;
 }
 
-time_t
-get_duration(const struct Game* const game)
-{  
-  return difftime(game->timeEnd, game->timeStart);
-}
-
-int
-get_lives(const struct Game* const game)
+unsigned int 
+get_screen_width(const struct Game* game)
 {
-  return game->lives;
+  assert(game != NULL);
+  
+  return game->screenWidth;
 }
 
-void
-add_points(struct Game* const game, const int points)
+unsigned int 
+get_screen_height(const struct Game* game)
 {
-  game->points = points;
-}
-
-int
-get_points(const struct Game* const game)
-{
-  return game->points;
-}
-
-int
-add_life(struct Game* const game)
-{
-  if(game->lives < MAX_LIVES) {
-    game->lives = game->lives + 1;
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-int
-remove_life(struct Game* const game)
-{
-  if(game->lives > 0) {
-    game->lives = game->lives - 1;
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-void
-add_snakePart(struct Game* const game)
-{
-  game->snakeParts = game->snakeParts + 1;
+  assert(game != NULL);
+  
+  return game->screenHeight;
 }
 

@@ -1,149 +1,125 @@
+#ifndef GAME_H
+#define GAME_H
+
 /*
- *	TheOpenSnake is free snake game for linux, windows, and mac osx
- *		Copyright (C) 2011  TheOpenSnake Team
- *
- *		This program is free software: you can redistribute it and/or modify
- *		it under the terms of the GNU General Public License as published by
- *		the Free Software Foundation, either version 3 of the License, or
- *		(at your option) any later version.
- *
- *		This program is distributed in the hope that it will be useful,
- *		but WITHOUT ANY WARRANTY; without even the implied warranty of
- *		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *		GNU General Public License for more details.
- *
- *		You should have received a copy of the GNU General Public License
- *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * 
- */
+* TheOpenSnake is free snake game for linux, windows, and mac osx
+* Copyright (C) 2011 TheOpenSnake Team
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*
+*
+*/
 
-#include <time.h>
-#include "sys.h"
-
+#include "bool.h"
 
 typedef struct Game Game;
+typedef struct Snake Snake;
+typedef struct Grid Grid;
+
+typedef enum Difficulty {
+  EASY,
+  MEDIUM,
+  HARD
+} Difficulty;
+
+typedef enum Cell { 
+  EMPTY,
+  SNAKE,
+  FOOD,
+  WALL
+} Cell;
 
 
-/*
-  Parameter:    None
-  Returns:      An instance of a Game Struct
-  Description:  This function initializes the instance and sets all default parameters
-*/
+/*********  game.c ***********/
 Game*
-init_game();
+create_game(Difficulty difficulty,
+            unsigned int gridHeight,
+            unsigned int gridWidth,
+            unsigned int screenHeight,
+            unsigned int screenWidth);
 
-
-
-/*
-  Parameter:    A constant instance of a constant Game Struct
-  Returns:      Nothing
-  Description:  This function deallocates the Game struct instance
-*/
 void
-free_game(Game* const game);
+destroy_game(Game* game);
+          
+Grid*
+get_grid(const Game* game);
+
+Snake*
+get_snake(const Game* game);
+
+Difficulty
+get_difficulty(const Game* game);
+
+unsigned int 
+get_screen_height(const Game* game);
+
+unsigned int 
+get_screen_width(const Game* game);
+/******************************/
 
 
 
-/*
-  Parameter:    A constant instance of a Game Struct
-  Returns:      Nothing
-  Description:  Resets the instance to default values;
-*/
+/*********  snake.c ***********/
 void
-reset_game(Game* const game);
+destroy_snake(Game* game);
 
+Snake*
+create_snake(Game* game);
 
+unsigned int
+get_snake_lives(const Game* game);
 
-/*
-  Parameter:    A constant instance of a Game Struct
-  Returns:      Nothing
-  Description:  Starts the Game and stores the current time in game->timeStart
-*/
+bool
+add_snake_life(Game* game);
+
+bool
+remove_snake_life(Game* game);
+
 void
-start_game(Game* const game);
+add_snake_part(Game* game);
 
-
-
-/*
-  Parameter:    A constant instance of a Game Struct
-  Returns:      Nothing
-  Description:  Ends the Game and stores the current time in game->timeEnd
-*/
 void
-end_game(Game* const game);
+move_snake(Game* game);
 
-
-
-/*
-  Parameter:    A constant instance of a constant Game Struct
-  Returns:      The duration of the game expressed in time_t
-  Description:  Calculates the duration of the game
-                from game->timeStart to game->timeStop
-*/
-time_t
-get_duration(const Game* const game);
-
-
-
-/*
-  Parameter:    A constant instance of a constant Game Struct
-  Returns:      Number of lives left
-  Description:  Return the number of lives left from game->lives
-*/
-int
-get_lives(const Game* const game);
-
-
-/*
-  Parameter:    A constant instance of a Game Struct, A constant value expressed in int
-  Returns:      Nothing
-  Description:  Adds points to game->points
-*/
 void
-add_points(Game* const game, const int points);
+add_snake_points(Game* game, const unsigned int points);
 
-
-
-/*
-  Parameter:    A constant instance of a constant Game Struct
-  Returns:      Points expressed in int
-  Description:  Returns the points from game->points
-*/
-int
-get_points(const Game* const game);
-
-
-
-/*
-  Parameter:    A constant instance of a Game Struct
-  Returns:      0 if maximum of lives ha been reached
-                1 if succesfully added the life
-  
-  Description:  Adds 1 life to game->lives
-*/
-int
-add_life(Game* const game);
-
-
-
-/*
-  Parameter:    A constant instance of a Game Struct
-  Returns:      0 if there are no more lives to remove (the snake is dead)
-                1 if succesfully removed the life
-  
-  Description:  Removes 1 life from game->lives
-*/
-int
-remove_life(Game* const game);
-
-
-
-/*
-  Parameter:    A constant instance of a Game Struct
-  Returns:      Nothing
-  Description:  Adds 1 snake part to game->snakeParts
-*/
 void
-add_snakePart(Game* const game);
+remove_snake_points(Game* game, const unsigned int points);
+/******************************/
+
+
+
+/*********  grid.c ***********/
+Grid*
+create_grid(Game* game, const unsigned int width, const unsigned int height);
+
+void
+destroy_grid(Game* game);
+
+void
+set_cell(Game* game, const unsigned int x, const unsigned int y, Cell cell);
+
+Cell
+get_cell(const Game* game, const unsigned int x, const unsigned int y);
+
+unsigned int
+get_grid_width(const Game* game);
+
+unsigned int
+get_grid_height(const Game* game);
+/******************************/
+
+#endif
 
