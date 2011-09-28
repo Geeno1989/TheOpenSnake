@@ -40,14 +40,12 @@ Then fix your GTK path:
 ### Compile 
 
 #### Makefile
-
     $ ./autogen.sh
-    $ ./configure
     $ make
     # make install
     
 #### Console (Linux)
-	$ gcc -Wall -DICONS_DIR=\""../share/icons"\" -o snake main.c main.h core/sys.h core/game.c core/game.h core/GrapichSnake.c gui/gui_lnx.c gui/gui_lnx.h gui/images.c gui/images.h libs/GrapichSnake.h libs/OpenGl.h `pkg-config --cflags --libs gtk+-2.0`
+	$ gcc -Wall -DICONS_DIR=\""../share/icons"\" -o snake main.c main.h core/sys.h core/game.c core/game.h gui/gui_lnx.c gui/gui_lnx.h gui/images.c gui/images.h libs/OpenGl.h `pkg-config --cflags --libs gtk+-2.0`
 	
 #### Console (Windows)
 	$ gcc -Wall -o snake main.c main.h core/sys.h core/game.c core/game.h core/GrapichSnake.c gui/gui_win.c gui/gui_win.h gui/images.c gui/images.h libs/GrapichSnake.h libs/OpenGl.h

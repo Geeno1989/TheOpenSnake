@@ -1,11 +1,13 @@
 bin_PROGRAMS = snake
-twc_SOURCES = \
-gui/main.c \
+snake_SOURCES = \
+gui/gui_lnx.c \
+core/game.c \
+gui/images.c \
 main.c
 
-twc_LDADD = @gtk3_LIBS@
+snake_LDADD = @gtk2_LIBS@
 
 AM_CPPFLAGS = \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@"\" \
-	@gtk3_CFLAGS@ \
+	@gtk2_CFLAGS@ 
