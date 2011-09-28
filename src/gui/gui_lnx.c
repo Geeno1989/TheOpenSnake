@@ -17,8 +17,10 @@
  *
  * 
  */
-#ifdef LINUX
-#include "gui.h"
+#ifdef linux
+#include "gui_lnx.h"
+#include "../core/sys.h"
+#include "images.h"
  
 GtkWidget*
 gtk_status_bar_create()

@@ -25,4 +25,6 @@
 
 #define MY_ENCODING "ISO-8859-1"
 
+int main(int argc, char **argv);
+
 #endif

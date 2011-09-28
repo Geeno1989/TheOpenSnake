@@ -8,11 +8,11 @@ AC_PROG_CC
 
 AC_CONFIG_HEADERS([config.h])
 
-PKG_CHECK_MODULES(gtk2, [gtk+-2.0 >= 2.30], , [
+PKG_CHECK_MODULES(gtk2, [gtk+-2.0 >= 2.0], , [
 		AC_MSG_RESULT(no)
 		AC_MSG_ERROR([
 
-You must have gtk+-2.0 >= 2.39
+You must have gtk+-2.0 >= 2.0
 ])])
 
 AC_SUBST(gtk_CFLAGS)

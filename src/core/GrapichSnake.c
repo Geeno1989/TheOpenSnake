@@ -1,5 +1,3 @@
-
-
 #include "GrapichSnake.h"
 
 void initializeSnake(snakePart_t part[100],GLfloat dim){

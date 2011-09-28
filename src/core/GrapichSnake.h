@@ -3,7 +3,7 @@
 
 #define DRAW_SNAKE_H
 
-#include "OpenGl.h"
+#include "../libs/OpenGl.h"
 #include "sys.h"
 void initializeSnake(snakePart_t part[100],GLfloat dim);
 GLfloat drawSnake(GLfloat dim,DIRECTION direction,snakePart_t part[100]);
